@@ -8,7 +8,7 @@ function Questions() {
     const [score, setScore] = useState(0);
     const [testOver, setTestOver] = useState(false);
     const [scoreOver, setScoreOver] = useState(false);
-    const [err, setErr] = useState(false);
+    const err = useRef(false);
     const Color = useRef();
     useEffect(()=>{
         setScoreOver(false)
@@ -21,7 +21,8 @@ function Questions() {
     },[])
 
     function handleAnswerClick(answer) {
-        setErr(true)
+        err.current = true;
+        console.log(err.current);
         if(answer) {
             Color.current.className = 'lime';
             setScore(score + 1);
@@ -44,10 +45,10 @@ function Questions() {
             </div>
         )
     }
-    if(err){
+    if(err.current){
         setTimeout(()=>{
             Color.current.className = '';
-        }, 400)
+        }, 100)
     }
 
     return (
